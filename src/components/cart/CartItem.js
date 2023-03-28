@@ -1,5 +1,5 @@
-import { removeFromCart } from '../../shop/reducers/cardsReducer';
 import { useDispatch } from 'react-redux';
+import { removeFavorite } from '../../shop/reducers/cardsReducer';
 
 const CartItem = ({ id, description, price }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const CartItem = ({ id, description, price }) => {
         <div className="cartModal-prod__price">${price}</div>
       </div>
       <button
-        onClick={() => dispatch(removeFromCart(id))}
+        onClick={() => dispatch(removeFavorite(id))}
         className="cartModal-prod__close"
       >
         <svg className="icon">

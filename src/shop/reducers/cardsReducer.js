@@ -1,34 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
-import sneakers from '../../assets/cards.json';
 
 const cardsSlice = createSlice({
   name: 'cards',
-  initialState: sneakers,
+  initialState: [],
   reducers: {
-    likedCard(state, action) {
-      const likedId = action.payload;
-      const currentCard = state.find((card) => card.id === likedId);
-      currentCard.isLiked = !currentCard.isLiked;
-      state = [...state.filter((card) => card.id !== likedId), currentCard];
+    setCards(state, action) {
+      state.push(
+        ...action.payload.map((card) => ({
+          ...card,
+          isLiked: false,
+          isFavorite: false,
+        }))
+      );
     },
-    addToCart(state, action) {
-      const cardId = action.payload;
-      const currentCard = state.find((card) => card.id === cardId);
-      currentCard.isAdded = !currentCard.isAdded;
-      state = [...state.filter((card) => card.id !== cardId), currentCard];
+    setLiked(state, action) {
+      const numOfCard = state.findIndex((card) => card.id === action.payload);
+      state[numOfCard].isLiked = !state[numOfCard].isLiked;
     },
-    removeFromCart(state, action) {
-      const cardId = action.payload;
-      const currentCard = state.find((card) => card.id === cardId);
-      currentCard.isAdded = false;
-      state = [...state.filter((card) => card.id !== cardId), currentCard];
+    setFavorite(state, action) {
+      const numOfCard = state.findIndex((card) => card.id === action.payload);
+      state[numOfCard].isFavorite = !state[numOfCard].isFavorite;
     },
-    resetAddedCard(state) {
-      state = state.map((card) => (card.isAdded = false));
+    removeFavorite(state, action) {
+      const numOfCard = state.findIndex((card) => card.id === action.payload);
+      state[numOfCard].isFavorite = false;
     },
   },
 });
 
-export const { likedCard, addToCart, resetAddedCard, removeFromCart, search } =
-  cardsSlice.actions;
+export const { setCards, setLiked, setFavorite, removeFavorite } = cardsSlice.actions;
 export default cardsSlice.reducer;

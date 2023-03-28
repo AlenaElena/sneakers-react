@@ -1,16 +1,18 @@
+import useGetFavorite from '../../hooks/useGetFavorite';
+import useGetTotalSum from '../../hooks/useGetTotalSum';
 import CartItem from './CartItem';
-import useGetSupplices from '../../hooks/useGetSupplices';
 
 const CartInfo = () => {
-  const [chosedSupplices, totalSum] = useGetSupplices();
-
-  const supplices = chosedSupplices.map((card) => (
-    <CartItem key={card.id} {...card} />
-  ));
+  const totalSum = useGetTotalSum();
+  const cards = useGetFavorite();
 
   return (
     <>
-      <div className="cartModal-products">{supplices}</div>
+      <div className="cartModal-products">
+        {cards.map((card) => (
+          <CartItem key={card.id} {...card} />
+        ))}
+      </div>
       <div className="cartModal-bottom">
         <div className="cartModal-bottom__row">
           <div className="cartModal-bottom__text">Итого:</div>

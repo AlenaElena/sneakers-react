@@ -1,9 +1,9 @@
 import Card from '../products/Card';
 import ProdSearch from '../products/ProdSearch';
-import useGetCards from '../../hooks/useGetCards'
+import useGetFilteredCards from '../../hooks/useGetFilteredCards';
 
 const Products = () => {
-  const [cards, searchText] = useGetCards();
+  const [cards, searchText] = useGetFilteredCards();
   const filteredCards = cards.map((card) => <Card key={card.id} {...card} />);
 
   return (
